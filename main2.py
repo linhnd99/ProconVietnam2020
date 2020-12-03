@@ -4,7 +4,8 @@ from time import time, sleep
 
 #config
 apiUrl = 'http://112.137.129.202:8004/'
-token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoiYXNzeXJpYW4iLCJpYXQiOjE2MDY0NzUyNjAsImV4cCI6MTYwNjU2MTY2MH0.h5JMh3XR1F4ZwPKCENiDj044NMgDU7BcLJ3NiZ_9MYA'
+
+token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoiYXNzeXJpYW4iLCJpYXQiOjE2MDY5ODA5NDUsImV4cCI6MTYwNzA2NzM0NX0.9itzNp3TCPj2A9S3XymUkb5OR4fkIAG9WLm27oFmtP4'
 
 # define
 INF = 1000000000
@@ -116,7 +117,7 @@ def findMaxPath(step, x, y, points, tiled, teamID, h, obstacles, score):
         return
     
     score += points[y-1][x-1] + game.getPointTreasure(y,x)
-    if step >= 8:
+    if step >= 9:
         if maxScore<score: 
             maxScore=score
             nextStep = path[0]
@@ -151,12 +152,90 @@ def findPath2(x, y, points, tiled, teamID, h, obstacles):
     findMaxPath(1, x, y, points, tiled, teamID, h, obstacles, 0)
     return [x+nextStep[0],y+nextStep[1]]
 
+def computeScore(isMyTeam):
+    global game
+
+    kt = [[True for i in range(0,game.getHeight()+1)] for j in range(0,game.getHeight()+1)]
+    
+    # compute point score
+    res = 0
+    for i in range (1,game.getHeight()+1):
+        for j in range(1,game.getHeight()+1):
+            if (game.getTiled()[i][j] == game.getTeamId()) == isMyTeam and game.getTiled()[i][j] != 0:
+                res = res + game.getMap()[i][j]
+                kt[i][j] = False
+    
+    # compute convex
+    ## except area edge
+    for i in range(1,game.getHeight()+1):
+        queue = []
+        queue.append(1)
+        queue.append(i)
+        kt[0][i]=False
+        while queue.count() > 0:
+            x = queue.pop(0)
+            y = queue.pop(0)
+            if !isValid(x,y):
+                continue
+            if kt[x+1][y] == True:
+                queue.append(x+1)
+                queue.append(y)
+                kt[x+1][y]=False
+            if kt[x-1][y] == True:
+                queue.append(x-1)
+                queue.append(y)
+                kt[x-1][y]=False
+            if kt[x][y+1] == True:
+                queue.append(x)
+                queue.append(y+1)
+                kt[x][y+1]=False
+            if kt[x][y-1] == True:
+                queue.append(x)
+                queue.append(y-1)
+                kt[x][y-1]=False
+
+    ## compute area score
+    for i in range(1,game.getHeight()):
+        for j in range(1,game.getHeight()):
+            if kt[i][j] == False:
+                continue
+            queue = []
+            queue.append(i)
+            queue.append(j)
+            kt[i][j]=False
+            while queue.count() > 0:
+                x = queue.pop(0)
+                y = queue.pop(0)
+                if !isValid(x,y):
+                    continue
+                res = res + game.getMap()[i][j]
+                if kt[x+1][y] == True:
+                    queue.append(x+1)
+                    queue.append(y)
+                    kt[x+1][y]=False
+                if kt[x-1][y] == True:
+                    queue.append(x-1)
+                    queue.append(y)
+                    kt[x-1][y]=False
+                if kt[x][y+1] == True:
+                    queue.append(x)
+                    queue.append(y+1)
+                    kt[x][y+1]=False
+                if kt[x][y-1] == True:
+                    queue.append(x)
+                    queue.append(y-1)
+                    kt[x][y-1]=False
+    return res
+
+    
 while True:
+    global game
     game = Procon()
     myPos = []
     if game is None:
         continue
     print('chạy turn: ' , game.getTurn())
+    
     for i in game.getMyAgents():
         nextMove = findPath2(i['x'], i['y'], game.getMap(), game.getTiled(), game.getTeamId(), game.getHeight(), game.getObstacles())
         type = 'move'
@@ -165,7 +244,11 @@ while True:
         print('agent ',i,' ',type,' ',nextMove)
         game.addActions(i['agentID'], nextMove[0]-i['x'], nextMove[1]-i['y'], type)
         myPos.append(nextMove)
+    
     game.move()
+    
     print("Đã chạy")
-    sleep(9)
+    print("---------------------------------")
+    print("sleeping",(int(game.data['turnMillis'])-3000)//1000,"s\n")
+    sleep((int(game.data['turnMillis'])-3000)//1000)
     
