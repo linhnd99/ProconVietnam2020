@@ -279,7 +279,7 @@ while True:
 
     game.move()
 
-    print("Đã chạy")
+    print("Đã chạy nè")
     print("---------------------------------")
     print("sleeping", (int(game.data['turnMillis'])-3000)//1000, "s\n")
     sleep((int(game.data['turnMillis'])-3000)//1000)
