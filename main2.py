@@ -205,7 +205,7 @@ def computeScore(isMyTeam):
         while queue.count() > 0:
             x = queue.pop(0)
             y = queue.pop(0)
-            if isValid(x, y) == False:
+            if isValid(x, y, game.getHeight()) == False:
                 continue
             if kt[x+1][y] == True:
                 queue.append(x+1)
@@ -236,7 +236,7 @@ def computeScore(isMyTeam):
             while queue.count() > 0:
                 x = queue.pop(0)
                 y = queue.pop(0)
-                if isValid(x, y) == False:
+                if isValid(x, y, game.getHeight()) == False:
                     continue
                 res = res + game.getMap()[i][j]
                 if kt[x+1][y] == True:
