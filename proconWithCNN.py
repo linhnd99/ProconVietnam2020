@@ -1,6 +1,7 @@
 import requests
 import json
 from time import time, sleep
+from scipy.ndimage import convolve
 
 # config
 apiUrl = 'http://112.137.129.202:8004/'
@@ -258,6 +259,38 @@ def computeScore(isMyTeam):
     return res
 
 
+# Find path with CNN
+def Padding(matrix, x, y):
+    xx = 0
+    yy = 0
+
+    if x<len(matrix)//2:
+        xx = len(matrix)//2 - x
+    if y<len(matrix[0])//2:
+        yy = len(matrix[0])//2 - y
+    return matrix
+
+
+def Convolution(matrix, filter=[[1,1],[1,1]]):
+    res = []
+    for i in range(0,len(matrix)-2):
+        row = []
+        for j in range(0,len(matrix[0])-2):
+            row.append(matrix[i][j] + matrix[i+1][j] + matrix[i+2][j] + matrix[i][j-1] + matrix[i+1][j+1] + matrix[i+2][j+1] + matrix[i][j+2] + matrix[i+1][j+2] + matrix[i+2][j+2])
+        res.append(row)
+    return matrix 
+
+def findPath3(agentID):
+    global game
+
+    matrix = game.getMap()
+    
+    while len(matrix) > 5:
+        matrix = convolve(matrix, [[1,1],[1,1]])
+        print(len(matrix))
+    
+    return
+
 while True:
     global game
     game = Procon()
@@ -267,8 +300,7 @@ while True:
     print('chạy turn: ', game.getTurn())
 
     for i in game.getMyAgents():
-        nextMove = findPath2(i['x'], i['y'], game.getMap(), game.getTiled(
-        ), game.getTeamId(), game.getHeight(), game.getObstacles())
+        nextMove = findPath2(i['x'], i['y'], game.getMap(), game.getTiled(), game.getTeamId(), game.getHeight(), game.getObstacles())
         type = 'move'
         if game.getTiled()[nextMove[1]-1][nextMove[0]-1] != 0 and game.getTiled()[nextMove[1]-1][nextMove[0]-1] != game.getTeamId():
             type = 'remove'
