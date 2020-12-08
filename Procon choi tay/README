@@ -1,0 +1,15 @@
+# REQUIRE: node, npm, ...
+
+# HOW TO USE: 
+Execute the following command:
+
+$ npm install
+$ webpack
+
+Output will be in "dist" folder. Access index.html in this folder via your webserver
+
+# CONFIGURATIONS & MODIFICATIONS:
+Change URL to Procol API server: change baseUrl value in file "src/store/index.js"
+...
+    baseUrl: 'http://112.137.129.202:8888',
+...
