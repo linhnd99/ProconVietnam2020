@@ -1,0 +1,16 @@
+C:\Users\admin\Desktop\ProconVietnam2020\ProconC__\ProconC__\bin\Debug\ProconC__.exe.config
+C:\Users\admin\Desktop\ProconVietnam2020\ProconC__\ProconC__\bin\Debug\ProconC__.exe
+C:\Users\admin\Desktop\ProconVietnam2020\ProconC__\ProconC__\bin\Debug\ProconC__.pdb
+C:\Users\admin\Desktop\ProconVietnam2020\ProconC__\ProconC__\bin\Debug\Newtonsoft.Json.dll
+C:\Users\admin\Desktop\ProconVietnam2020\ProconC__\ProconC__\bin\Debug\System.Net.Http.Extensions.dll
+C:\Users\admin\Desktop\ProconVietnam2020\ProconC__\ProconC__\bin\Debug\System.Net.Http.Formatting.dll
+C:\Users\admin\Desktop\ProconVietnam2020\ProconC__\ProconC__\bin\Debug\System.Net.Http.Primitives.dll
+C:\Users\admin\Desktop\ProconVietnam2020\ProconC__\ProconC__\bin\Debug\Newtonsoft.Json.xml
+C:\Users\admin\Desktop\ProconVietnam2020\ProconC__\ProconC__\obj\Debug\ProconC__.csprojAssemblyReference.cache
+C:\Users\admin\Desktop\ProconVietnam2020\ProconC__\ProconC__\obj\Debug\ProconC__.Form1.resources
+C:\Users\admin\Desktop\ProconVietnam2020\ProconC__\ProconC__\obj\Debug\ProconC__.Properties.Resources.resources
+C:\Users\admin\Desktop\ProconVietnam2020\ProconC__\ProconC__\obj\Debug\ProconC__.csproj.GenerateResource.cache
+C:\Users\admin\Desktop\ProconVietnam2020\ProconC__\ProconC__\obj\Debug\ProconC__.csproj.CoreCompileInputs.cache
+C:\Users\admin\Desktop\ProconVietnam2020\ProconC__\ProconC__\obj\Debug\ProconC__.csproj.CopyComplete
+C:\Users\admin\Desktop\ProconVietnam2020\ProconC__\ProconC__\obj\Debug\ProconC__.exe
+C:\Users\admin\Desktop\ProconVietnam2020\ProconC__\ProconC__\obj\Debug\ProconC__.pdb
